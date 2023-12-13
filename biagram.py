@@ -1,26 +1,42 @@
+import argparse
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
-# hyperparameters
-batch_size = 512 # how many independent sequences will we process in parallel?
-block_size = 50 # what is the maximum context length for predictions?
-max_iters = 10000
+parser = argparse.ArgumentParser(description='Train and generate text with a Bigram Language Model')
+parser.add_argument('--efficiency', '-e', action='store_true', help='Set hyperparameters for efficiency')
+parser.add_argument('--speed', '-s', action='store_true', help='Set hyperparameters for speed')
+args = parser.parse_args()
+
+if args.efficiency:
+    batch_size = 512 
+    block_size = 50 
+    max_iters = 10000
+    print("you choose efficiency","\nbatch_size: ",batch_size,"\nblock_size: ",block_size,"\nmax iterations: ",max_iters)
+elif args.speed:
+    batch_size = 16
+    block_size = 16 
+    max_iters = 5000
+    print("you choose speed\n","batch_size: ",batch_size,"\nblock_size: ",block_size,"\nmax iterations: ",max_iters)
+else:
+    print("Please specify either --efficiency (-e) or --speed (-s)\n\n\n")
+    raise ValueError("ERROR")
+
 eval_interval = 100
 learning_rate = 1e-3
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-print(device)
+print("\n\nDetected device: ", device)
 eval_iters = 200
 n_embd = 64
 n_head = 4
 n_layer = 5
 dropout = 0.0
-# ------------
 
 torch.manual_seed(1337)
 
 with open('Shakesphere.txt', 'r', encoding='utf-8') as f:
     text = f.read()
+print("\nLoaded text of length", len(text), "\nStarting training...\n\n")
 
 chars = sorted(list(set(text)))
 vocab_size = len(chars)

@@ -3,6 +3,7 @@
 GPT-neo is a transformer model built from the ground up, inspired by the research paper [Attention is All You Need](https://arxiv.org/abs/1706.03762). This model is designed for various natural language processing tasks, and for fun, I used it to create a clone of my favorite writer, Shakespeare.
 
 ## Table of Contents
+- [Comparison with other llm](#comparison-with-other-llm)
 - [How to Use](#how-to-use)
   - [Install Dependencies](#install-dependencies)
   - [Train](#train)
@@ -12,25 +13,52 @@ GPT-neo is a transformer model built from the ground up, inspired by the researc
   - [Generation Process](#generation-process)
 - [Acknowledgements](#acknowledgements)
 
+## Comparison with other llm
+
+
+| **Configuration**        | **Your Model**          | **GPT-3**               | **GPT-3 Small**         |
+|--------------------------|-------------------------|-------------------------|-------------------------|
+| **Parameters**           | 26M                     | 175B                    | 125M                    |
+| **Batch Size**           | 512                     | 3.2M                    | 0.5M                    |
+| **Block Size**           | 50                      | -                       | -                       |
+| **Maximum Iterations**   | 10,000                  | -                       | -                       |
+| **Evaluation Interval**  | 100                     | -                       | -                       |
+| **Learning Rate**        | 1e-3                    | 0.6 * 10^-4             | 6.0 * 10^-4             |
+| **Device**               | 'cuda' if available     | -                       | -                       |
+| **Evaluation Iterations**| 200                     | -                       | -                       |
+| **Embedding Dimension**  | 64                      | 12,288                  | 768                     |
+| **Number of Heads**      | 4                       | 96                      | 12                      |
+| **Number of Layers**     | 5                       | 96                      | 12                      |
+| **Dropout Rate**         | 0.0                     | -                       | -                       |
+| **Token**                | 300K                    | 300B                    | 300B                    |
+
+
 ## How to Use
-<!-- 
-### Install Dependencies
+
+### Using Google Colab
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Vf8llbJoM_ZgbXFw-21pS2PTbYdFbC1n#scrollTo=bIpNCuaoBciV)
+
+#### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Train
+#### Train and Generate Text
+
+To train the Bigram Language Model and generate text, use the following command:
 
 ```bash
-python train.py
+python3 biagram.py
 ```
 
-### Generate
+> **Note:** You have to pass arguments of `-e` or `-s` to change the training type from speed to efficiency.
 
-```bash
-python generate.py
-``` -->
+> Example for efficiency training:
+> ```bash
+> python3 biagram.py -e
+> ```
 
 Feel free to explore and experiment with this model to generate creative and interesting text!
 
